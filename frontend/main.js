@@ -8,10 +8,10 @@ const client = createClient({
 });
 
 const data = await client.fetch(`*[_type == "restaurant"]`);
-viewableData = JSON.stringify(data)
-console.log(`Number of documents: ${viewableData}`);
+const restaurants = data;
+console.log(`Number of documents: ${restaurants}`);
 
-var map = L.map("map").setView([51.564656, -0.107868], 17);
+const map = L.map("map").setView([51.564115, -0.105958], 16);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 20,
@@ -20,28 +20,29 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // Add a things to the map
-var markerFAC = L.marker([51.56443, -0.108662]).addTo(map);
-var markerStuffed = L.marker([51.563721, -0.108458]).addTo(map);
-var markerStuffed = L.marker([51.565176, -0.108169]).addTo(map);
+let markerFAC = L.marker([51.56443, -0.108662]).addTo(map);
+markerFAC.bindPopup("<h1>FAC</h1>").openPopup();
 
-// var circle = L.circle([51.508, -0.11], {
-//   color: "red",
-//   fillColor: "#f03",
-//   fillOpacity: 0.5,
-//   radius: 500,
-// }).addTo(map);
+restaurants.map(x => {
+  let marker = L.marker([x.location.lat, x.location.lng]).addTo(map);
+  marker.bindPopup(`<h2>${x.name}</h2>`);
+})
 
-// var polygon = L.polygon([
+let circle = L.circle([51.564424, -0.108619], {
+  color: "red",
+  fillColor: "#f03",
+  fillOpacity: 0.1,
+  radius: 500,
+}).addTo(map);
+
+// let polygon = L.polygon([
 //   [51.509, -0.08],
 //   [51.503, -0.06],
 //   [51.51, -0.047],
 // ]).addTo(map);
 
-markerFAC.bindPopup("<h1>👨‍💻</h1>").openPopup();
-markerStuffed.bindPopup("<h1>Stuffd</h1>");
-
-function onMapClick(e) {
-  alert("You clicked the map at " + e.latlng);
-}
-
-map.on("click", onMapClick);
+// Lat and Lon on click function
+// function onMapClick(e) {
+//   alert("You clicked the map at " + e.latlng);
+// }
+// map.on("click", onMapClick);
