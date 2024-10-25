@@ -1,1 +1,3 @@
-export const schemaTypes = []
+import {routeType} from './routeType';
+
+export const schemaTypes = [routeType]
