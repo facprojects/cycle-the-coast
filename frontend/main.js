@@ -4,12 +4,12 @@ const client = createClient({
   projectId: "3iq2cmvf",
   dataset: "production",
   useCdn: true, // set to `false` to bypass the edge cache
-  apiVersion: "2023-05-03", // use current date (YYYY-MM-DD) to target the latest API version
+  apiVersion: "2024-10-25", // use current date (YYYY-MM-DD) to target the latest API version
 });
 
 const data = await client.fetch(`*[_type == "restaurant"]`);
 const restaurants = data;
-console.log(`Number of documents: ${restaurants}`);
+console.log(`Restaurants: ${restaurants}`);
 
 const map = L.map("map").setView([51.564115, -0.105958], 16);
 
