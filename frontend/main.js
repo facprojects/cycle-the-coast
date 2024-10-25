@@ -7,8 +7,9 @@ const client = createClient({
   apiVersion: "2023-05-03", // use current date (YYYY-MM-DD) to target the latest API version
 });
 
-const data = await client.fetch(`count(*)`);
-console.log(`Number of documents: ${data}`);
+const data = await client.fetch(`*[_type == "restaurant"]`);
+viewableData = JSON.stringify(data)
+console.log(`Number of documents: ${viewableData}`);
 
 var map = L.map("map").setView([51.564656, -0.107868], 17);
 
